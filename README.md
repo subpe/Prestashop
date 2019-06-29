@@ -14,6 +14,7 @@ Industry Type - As per your choice
 Transaction URL
 
 Test - https://uat.bhartipay.com/crm/jsp/paymentrequest
+
 Production - https://merchant.bhartipay.com/crm/jsp/paymentrequest
 
 
