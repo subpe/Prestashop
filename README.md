@@ -10,7 +10,9 @@ Merchant PAY ID- Test/Production Pay Id provided by bhartipay
 Merchant SALT - SALT provided by bhartipay
 Website - Copy and paste the complete Url including http or https.
 Industry Type - As per your choice
+
 Transaction URL
+
 Test - https://uat.bhartipay.com/crm/jsp/paymentrequest
 Production - https://merchant.bhartipay.com/crm/jsp/paymentrequest
 
