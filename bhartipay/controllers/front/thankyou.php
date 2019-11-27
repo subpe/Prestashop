@@ -42,7 +42,6 @@ class BhartiPayThankyouModuleFrontController extends ModuleFrontController
         $pay_id = Configuration::get('pay_id');
         $salt = Configuration::get('merchant_salt');
         $merchant_website = Configuration::get('merchant_website');
-
         $industry_type = Configuration::get('industry_type');
         $transaction_request_url = Configuration::get('transaction_request_url');
         $transaction_response_url= Configuration::get('transaction_response_url');
@@ -51,16 +50,43 @@ class BhartiPayThankyouModuleFrontController extends ModuleFrontController
         $merchant_website=$merchant_website."en/module/bhartipay/thankyou";
         //test for redirect
 
+
+       //hash validation
+       
+        //validate function
+               $response=$_POST;
+
+                    $validate_response = function($response)
+                        {
+                            $postdata = $response;
+                            //set salt here
+                            $salt=Configuration::get('merchant_salt');
+                                ksort($postdata);
+                                unset($postdata["HASH"]);
+                                $all = '';
+                                foreach ($postdata as $name => $value) {
+                                    $all .= $name."=".$value."~";
+                                }
+                                $all = substr($all, 0, -1);
+                                $all .= $salt;
+                                $generated_hash = strtoupper(hash('sha256', $all));
+                                if ($response['HASH'] == $generated_hash) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                        };
+                     $validate_response = $validate_response($response) ;
+                   //validate function ends here
                 
         
         if ($_POST['STATUS']=="Cancelled") {
-            Tools::redirect(Tools::getHttpHost(true).__PS_BASE_URI__.'en/cart?action=show');
+         Tools::redirect(Tools::getHttpHost(true).__PS_BASE_URI__.'en/cart?action=show');
         }
 
-       // $this->setTemplate('module:bhartipay/views/templates/front/payment_return.tpl');
-
-
-        $customer = new Customer($cart->id_customer);
+       elseif($_POST['STATUS']=="Captured" && $validate_response==TRUE){
+          
+            $customer = new Customer($cart->id_customer);
         if (!Validate::isLoadedObject($customer))
             Tools::redirect('index.php?controller=order&step=1');
 
@@ -71,11 +97,15 @@ class BhartiPayThankyouModuleFrontController extends ModuleFrontController
             '{bankwire_details}' => nl2br(Configuration::get('BANK_WIRE_DETAILS')),
             '{bankwire_address}' => nl2br(Configuration::get('BANK_WIRE_ADDRESS'))
         );
-
         $this->module->validateOrder($cart->id, Configuration::get('PS_OS_BANKWIRE'), $total, $this->module->displayName, NULL, $mailVars, (int)$currency->id, false, $customer->secure_key);
         Tools::redirect('index.php?controller=order-confirmation&id_cart='.$cart->id.'&id_module='.$this->module->id.'&id_order='.$this->module->currentOrder.'&key='.$customer->secure_key);
-    }
-
+       }
+       
+       else{
+          Tools::redirect(Tools::getHttpHost(true).__PS_BASE_URI__.'en/cart?action=show');
+       }
+           
+ }
 
 }
 
