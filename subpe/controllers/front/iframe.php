@@ -27,7 +27,7 @@
 /**
  * @since 1.5.0
  */
-class BhartiPayIframeModuleFrontController extends ModuleFrontController
+class SubPeIframeModuleFrontController extends ModuleFrontController
 {
     public function initContent()
     {
@@ -36,6 +36,6 @@ class BhartiPayIframeModuleFrontController extends ModuleFrontController
             'src' => 'http://www.prestashop.com',
         ]);
 
-        $this->setTemplate('module:bhartipay/views/templates/front/iframe.tpl');
+        $this->setTemplate('module:subpe/views/templates/front/iframe.tpl');
     }
 }

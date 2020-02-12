@@ -21,7 +21,7 @@ h3 {
 }
 </style>
 <div class="loader">
-    <img src="https://www.bhartipay.com/wp-content/uploads/2018/07/logo.png" class="centre-image">
+    <img src="https://www.subpe.com/wp-content/uploads/2018/07/logo.png" class="centre-image">
 </div>  
 
 
@@ -58,7 +58,7 @@ h3 {
 // $path=$base."\lib\bppg_helper.php";
 // require_once("$path");
 require_once("bppg_helper.php");
-class BhartiPayValidationModuleFrontController extends ModuleFrontController
+class SubPeValidationModuleFrontController extends ModuleFrontController
 {
     public $ssl = true;
 
@@ -74,7 +74,7 @@ class BhartiPayValidationModuleFrontController extends ModuleFrontController
         // Check that this payment option is still available in case the customer changed his address just before the end of the checkout process
         $authorized = false;
         foreach (Module::getPaymentModules() as $module) {
-            if ($module['name'] == 'bhartipay') {
+            if ($module['name'] == 'subpe') {
                 $authorized = true;
                 break;
             }
@@ -88,7 +88,7 @@ class BhartiPayValidationModuleFrontController extends ModuleFrontController
             'params' => $_REQUEST,
         ]);
 
-        //bhartipay
+        //subpe
         $amount = $cart->getOrderTotal(true, Cart::BOTH);
         $amount;
         global $cookie;
@@ -108,8 +108,8 @@ class BhartiPayValidationModuleFrontController extends ModuleFrontController
         $transaction_request_url = Configuration::get('transaction_request_url');
         $transaction_response_url= Configuration::get('transaction_response_url');
         $callback_url =Configuration::get('callback_url');
-        //$merchant_website=$merchant_website."en/module/bhartipay/validation";
-        $merchant_website=$merchant_website."en/module/bhartipay/thankyou";
+        //$merchant_website=$merchant_website."en/module/subpe/validation";
+        $merchant_website=$merchant_website."en/module/subpe/thankyou";
         //test for redirect
 
         @$pg_transaction = new BPPGModule;
@@ -137,7 +137,7 @@ class BhartiPayValidationModuleFrontController extends ModuleFrontController
        // @$pg_transaction->setCustShipZip($_REQUEST['CUST_SHIP_ZIP']);
        // @$pg_transaction->setCustShipPhone($_REQUEST['CUST_SHIP_PHONE']);
        // @$pg_transaction->setCustShipName($_REQUEST['CUST_SHIP_NAME']);
-        //bhartipay
+        //subpe
         if (isset($_REQUEST['token'])) {
             $postdata = $pg_transaction->createTransactionRequest();
             $pg_transaction->redirectForm($postdata);
@@ -148,7 +148,7 @@ class BhartiPayValidationModuleFrontController extends ModuleFrontController
             Tools::redirect(Tools::getHttpHost(true).__PS_BASE_URI__.'en/cart?action=show');
         }
 
-        $this->setTemplate('module:bhartipay/views/templates/front/payment_return.tpl');
+        $this->setTemplate('module:subpe/views/templates/front/payment_return.tpl');
 
 
         $customer = new Customer($cart->id_customer);

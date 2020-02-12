@@ -30,7 +30,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class BhartiPay extends PaymentModule
+class SubPe extends PaymentModule
 {
     protected $_html = '';
     protected $_postErrors = array();
@@ -42,7 +42,7 @@ class BhartiPay extends PaymentModule
 
     public function __construct()
     {
-        $this->name = 'bhartipay';
+        $this->name = 'subpe';
         $this->tab = 'payments_gateways';
         $this->version = '1.0.0';
         $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
@@ -56,8 +56,8 @@ class BhartiPay extends PaymentModule
         $this->bootstrap = true;
         parent::__construct();
 
-        $this->displayName = $this->l('Bhartipay Payment Gateway');
-        $this->description = $this->l('If you are looking for a reliable online payment partner, head towards BhartiPay, we offer 100+ Payment options. Easy to integrate with your website with tons of ready-to-go plugins for major open source ecommerce.');
+        $this->displayName = $this->l('Subpe Payment Gateway');
+        $this->description = $this->l('If you are looking for a reliable online payment partner, head towards SubPe, we offer 100+ Payment options. Easy to integrate with your website with tons of ready-to-go plugins for major open source ecommerce.');
 
         if (!count(Currency::checkPaymentCurrencies($this->id))) {
             $this->warning = $this->l('No currency has been set for this module.');
@@ -279,7 +279,7 @@ class BhartiPay extends PaymentModule
 
 
         $externalOption = new PaymentOption();
-        $externalOption->setCallToActionText($this->l('Pay By BhartiPay'))
+        $externalOption->setCallToActionText($this->l('Pay By SubPe'))
                        ->setAction($this->context->link->getModuleLink($this->name, 'validation', array(), true))
                        ->setInputs([
                             'token' => [
@@ -311,6 +311,6 @@ class BhartiPay extends PaymentModule
             'years' => $years,
         ]);
 
-        return $this->context->smarty->fetch('module:bhartipay/views/templates/front/payment_form.tpl');
+        return $this->context->smarty->fetch('module:subpe/views/templates/front/payment_form.tpl');
     }
 }

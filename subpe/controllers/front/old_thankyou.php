@@ -1,5 +1,5 @@
 <?php 
-class BhartiPayThankyouModuleFrontController extends ModuleFrontController
+class SubPeThankyouModuleFrontController extends ModuleFrontController
 {
   
  public function postProcess()
@@ -11,7 +11,7 @@ class BhartiPayThankyouModuleFrontController extends ModuleFrontController
         // Check that this payment option is still available in case the customer changed his address just before the end of the checkout process
         $authorized = false;
         foreach (Module::getPaymentModules() as $module) {
-            if ($module['name'] == 'bhartipay') {
+            if ($module['name'] == 'subpe') {
                 $authorized = true;
                 break;
             }
@@ -22,7 +22,7 @@ class BhartiPayThankyouModuleFrontController extends ModuleFrontController
         $this->context->smarty->assign([
             'params' => $_REQUEST,
         ]);
-        //bhartipay
+        //subpe
         $amount = $cart->getOrderTotal(true, Cart::BOTH);
         $amount;
         global $cookie;
@@ -40,15 +40,15 @@ class BhartiPayThankyouModuleFrontController extends ModuleFrontController
         $transaction_request_url = Configuration::get('transaction_request_url');
         $transaction_response_url= Configuration::get('transaction_response_url');
         $callback_url =Configuration::get('callback_url');
-        //$merchant_website=$merchant_website."en/module/bhartipay/validation";
-        $merchant_website=$merchant_website."en/module/bhartipay/thankyou";
+        //$merchant_website=$merchant_website."en/module/subpe/validation";
+        $merchant_website=$merchant_website."en/module/subpe/thankyou";
         //test for redirect
                 
         
         if ($_POST['STATUS']=="Cancelled") {
             Tools::redirect(Tools::getHttpHost(true).__PS_BASE_URI__.'en/cart?action=show');
         }
-       // $this->setTemplate('module:bhartipay/views/templates/front/payment_return.tpl');
+       // $this->setTemplate('module:subpe/views/templates/front/payment_return.tpl');
         $customer = new Customer($cart->id_customer);
         if (!Validate::isLoadedObject($customer))
             Tools::redirect('index.php?controller=order&step=1');

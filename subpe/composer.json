@@ -1,7 +1,7 @@
 {
-  "name": "prestashop/bhartipay",
-  "description": "PrestaShop module bhartipay",
-  "homepage": "https://github.com/PrestaShop/bhartipay",
+  "name": "prestashop/subpe",
+  "description": "PrestaShop module subpe",
+  "homepage": "https://github.com/PrestaShop/subpe",
   "license": "AFL - Academic Free License (AFL 3.0)",
   "authors": [
     {
